@@ -6,6 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "db:dev": "pnpx prisma migrate dev",
+    "db:deploy": "pnpx prisma migrate deploy",
+    "db:generate": "pnpx prisma generate",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
