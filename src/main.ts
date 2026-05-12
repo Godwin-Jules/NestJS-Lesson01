@@ -2,11 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
+import { MyLoggerService } from './my-logger/my-logger.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: ['error', 'warn', 'fatal', 'debug', 'verbose', 'log'],
+    bufferLogs: true,
   });
+  app.useLogger(app.get(MyLoggerService));
   const configService = app.get(ConfigService);
 
   const prot = configService.getOrThrow<string>('app.protocol');

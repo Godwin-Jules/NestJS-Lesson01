@@ -10,6 +10,7 @@ import appConfig from './config/app.config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { HealthModule } from './health/health.module';
+import { MyLoggerModule } from './my-logger/my-logger.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { HealthModule } from './health/health.module';
       { name: 'short', limit: 3, ttl: 15000 },
       { name: 'long', limit: 5, ttl: 60000 },
     ]),
+    MyLoggerModule,
   ],
   controllers: [AppController],
   providers: [
