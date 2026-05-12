@@ -9,6 +9,7 @@ import dbConfig from './config/db.config';
 import appConfig from './config/app.config';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { APP_GUARD } from '@nestjs/core';
     UsersModule,
     EmployeesModule,
     PrismaModule,
+    HealthModule,
     ThrottlerModule.forRoot([{ limit: 3, ttl: 60000 }]),
   ],
   controllers: [AppController],
