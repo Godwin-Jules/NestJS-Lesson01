@@ -4,7 +4,9 @@ import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn', 'fatal', 'debug', 'verbose', 'log'],
+  });
   const configService = app.get(ConfigService);
 
   const prot = configService.getOrThrow<string>('app.protocol');
