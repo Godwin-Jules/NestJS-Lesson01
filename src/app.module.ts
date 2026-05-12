@@ -6,6 +6,7 @@ import { EmployeesModule } from './employees/employees.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import dbConfig from './config/db.config';
+import appConfig from './config/app.config';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import dbConfig from './config/db.config';
       isGlobal: true,
       skipProcessEnv: true,
       envFilePath: '.env.local',
-      load: [dbConfig],
+      load: [appConfig, dbConfig],
       cache: true,
     }),
     UsersModule,
