@@ -4,9 +4,22 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { EmployeesModule } from './employees/employees.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
+import dbConfig from './config/db.config';
 
 @Module({
-  imports: [UsersModule, EmployeesModule, PrismaModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      skipProcessEnv: true,
+      envFilePath: '.env.local',
+      load: [dbConfig],
+      cache: true,
+    }),
+    UsersModule,
+    EmployeesModule,
+    PrismaModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
