@@ -24,7 +24,10 @@ import { HealthModule } from './health/health.module';
     EmployeesModule,
     PrismaModule,
     HealthModule,
-    ThrottlerModule.forRoot([{ limit: 3, ttl: 60000 }]),
+    ThrottlerModule.forRoot([
+      { name: 'short', limit: 3, ttl: 15000 },
+      { name: 'long', limit: 5, ttl: 60000 },
+    ]),
   ],
   controllers: [AppController],
   providers: [
