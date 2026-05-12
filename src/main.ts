@@ -1,15 +1,15 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, HttpAdapterHost } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { Logger } from '@nestjs/common';
-import { MyLoggerService } from './my-logger/my-logger.service';
+import { AllExceptionFilter } from './all-exceptions.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: ['error', 'warn', 'fatal', 'debug', 'verbose', 'log'],
-    bufferLogs: true,
-  });
-  app.useLogger(app.get(MyLoggerService));
+  const app = await NestFactory.create(AppModule);
+
+  const { httpAdapter } = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new AllExceptionFilter(httpAdapter));
+
   const configService = app.get(ConfigService);
 
   const prot = configService.getOrThrow<string>('app.protocol');
